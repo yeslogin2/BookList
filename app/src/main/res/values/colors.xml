@@ -5,4 +5,5 @@
     <color name="colorAccent">#FF4081</color>
     <color name="color_0176da">#0176da</color>
     <color name="color_white">#ffffff</color>
+    <color name="drawer_header">#3385ff</color>
 </resources>

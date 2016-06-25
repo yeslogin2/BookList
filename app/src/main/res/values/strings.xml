@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">BookList</string>
+    <string name="app_zh_name">布克李</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
+    <string name="drawer_header">点击头像登陆</string>
+    <string name="drawer_menu_item1">我的收藏</string>
+    <string name="drawer_menu_item2">我的布克李</string>
 </resources>

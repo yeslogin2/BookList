@@ -6,8 +6,11 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -20,18 +23,46 @@ public class MainActivity extends BaseActivity {
 
     private ImageView todayImage;
     private TextView todayText;
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mDrawerToggle;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.custom_drawerlayout);
 
         Toolbar toolbar =(Toolbar)findViewById(R.id.toolbar);
-        toolbar.setTitle(R.string.app_name);
+        toolbar.setTitle(R.string.app_zh_name);
         toolbar.setTitleTextColor(getResources().getColor(R.color.color_white));
         toolbar.inflateMenu(R.menu.toolbar_menu);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Toolbar.OnMenuItemClickListener onMenuItemClickListener =
+                new Toolbar.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()){
+                            case R.id.menu_action_search:
+                                Toast.makeText(MainActivity.this, "going to search",
+                                        Toast.LENGTH_SHORT).show();
+                                break;
+                            default:
+                                break;
+                        }
+                        return true;
+                    }
+                };
+        toolbar.setOnMenuItemClickListener(onMenuItemClickListener);
+
+        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_content);
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar,
+                R.string.drawer_open, R.string.drawer_close);
+
+        mDrawerToggle.syncState();
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
 
         todayImage = (ImageView)findViewById(R.id.today_image);
         todayText = (TextView)findViewById(R.id.today_text);
@@ -90,5 +121,11 @@ public class MainActivity extends BaseActivity {
         protected void onPostExecute(String result){
             textView.setText(result);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        return true;
     }
 }
