@@ -1,5 +1,6 @@
 package com.example.cy123.booklist;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cy123.booklist.Utils.StringLoader;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -46,8 +48,9 @@ public class MainActivity extends BaseActivity {
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()){
                             case R.id.menu_action_search:
-                                Toast.makeText(MainActivity.this, "going to search",
-                                        Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(MainActivity.this,
+                                        SearchActivity.class);
+                                startActivity(intent);
                                 break;
                             default:
                                 break;
@@ -70,7 +73,7 @@ public class MainActivity extends BaseActivity {
         String url = "http://www.chengyang.link";
 
         Picasso.with(getApplicationContext())
-                .load(url + "/img/hummingbird-copy.jpg")
+                .load(url + "/booklist/today_image.jpg")
                 .into(todayImage);
 
 
@@ -86,35 +89,13 @@ public class MainActivity extends BaseActivity {
 
         protected String doInBackground(String... addresses){
             String s = null;
-            InputStream in = null;
-            byte[] buffer = new byte[2048];
             try{
-                URL url = new URL(addresses[0] + "/booklist/today_article.txt");
-                HttpURLConnection connection = (HttpURLConnection)url.openConnection();
-                connection.connect();
-                in = connection.getInputStream();
-
-                int readBytes = 0;
-                StringBuilder stringBuilder = new StringBuilder();
-                while((readBytes = in.read(buffer)) > 0){
-                    stringBuilder.append(new String(buffer, 0, readBytes));
-                }
-
-                s = stringBuilder.toString();
+                s = StringLoader.load(addresses[0] + "/booklist/today_article.txt");
             }
             catch (IOException e){
                 e.printStackTrace();
             }
-            finally {
-                if(in != null){
-                    try {
-                        in.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-                return s;
-            }
+            return s;
         }
 
         @Override
