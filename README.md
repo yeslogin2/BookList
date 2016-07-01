@@ -2,6 +2,7 @@
 An android app at which you could find interesting books, and book information
 
 This is the first view which comes to you when you launch it: 
+
 ![image](https://github.com/yeslogin2/BookList/blob/master/app/src/main/res/drawable/Screenshot_2.png)
 
 You can search books like this:
