@@ -13,8 +13,18 @@ import okhttp3.Response;
 public class StringLoader {
     private static OkHttpClient client = new OkHttpClient();
 
-    public static String load(String sUrl) throws IOException{
+    public static String loadWithString(String sUrl) throws IOException{
         URL url = new URL(sUrl);
+        Request request = new Request.Builder().url(url).build();
+        Response response = client.newCall(request).execute();
+        if (response.isSuccessful()) {
+            return response.body().string();
+        } else {
+            throw new IOException("Unexpected code " + response);
+        }
+    }
+
+    public static String loadWithUrl(URL url) throws IOException {
         Request request = new Request.Builder().url(url).build();
         Response response = client.newCall(request).execute();
         if (response.isSuccessful()) {

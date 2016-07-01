@@ -39,7 +39,7 @@ public class MainActivity extends BaseActivity {
         toolbar.setTitleTextColor(getResources().getColor(R.color.color_white));
         toolbar.inflateMenu(R.menu.toolbar_menu);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
+        getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Toolbar.OnMenuItemClickListener onMenuItemClickListener =
@@ -90,7 +90,7 @@ public class MainActivity extends BaseActivity {
         protected String doInBackground(String... addresses){
             String s = null;
             try{
-                s = StringLoader.load(addresses[0] + "/booklist/today_article.txt");
+                s = StringLoader.loadWithString(addresses[0] + "/booklist/today_article.txt");
             }
             catch (IOException e){
                 e.printStackTrace();

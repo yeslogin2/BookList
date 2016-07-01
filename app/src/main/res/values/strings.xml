@@ -7,4 +7,5 @@
     <string name="drawer_menu_item1">我的收藏</string>
     <string name="drawer_menu_item2">我的布克李</string>
     <string name="search_hint">想搜什么书呢</string>
+    <string name="bookshow_title">布克秀</string>
 </resources>
